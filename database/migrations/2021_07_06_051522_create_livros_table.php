@@ -16,7 +16,7 @@ class CreateLivrosTable extends Migration
         Schema::create('livros', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->string('descricao');
+            $table->longText('descricao');
             $table->string('autor');
             $table->integer('numero_paginas');
             $table->softDeletes();

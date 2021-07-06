@@ -1,53 +1,12 @@
 $(document).ready(function(){
 
-    $('#cep').on('blur', function(){
-
-        if($.trim($("#cep").val()) != ""){
-
-            $.getScript("http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+$("#cep").val(), function(){
-
-                if(resultadoCEP["resultado"]){
-                    $("#endereco").val(unescape(resultadoCEP["tipo_logradouro"])+" "+unescape(resultadoCEP["logradouro"]));
-                    $("#bairro").val(unescape(resultadoCEP["bairro"]));
-                    $("#cidade").val(unescape(resultadoCEP["cidade"]));
-                    $("#uf").val(unescape(resultadoCEP["uf"]));
-                }
-            });				
-        }			
-    });
-
-    $('#cep_edit').on('blur', function(){
-
-        if($.trim($("#cep_edit").val()) != ""){
-
-            $.getScript("http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+$("#cep_edit").val(), function(){
-
-                if(resultadoCEP["resultado"]){
-                    $("#endereco_edit").val(unescape(resultadoCEP["tipo_logradouro"])+" "+unescape(resultadoCEP["logradouro"]));
-                    $("#bairro_edit").val(unescape(resultadoCEP["bairro"]));
-                    $("#cidade_edit").val(unescape(resultadoCEP["cidade"]));
-                    $("#uf_edit").val(unescape(resultadoCEP["uf"]));
-                }
-            });				
-        }			
-    });
-
     $('#enviar-dados').on('click', function() {
+
+        var titulo = $('#titulo').val();
+        var descricao = $('#descricao').val();
+        var autor = $('#autor').val();
+        var numero_paginas = $('#numero_paginas').val();
         
-        var razao = $('#razao_social').val();
-        var cnpj = $('#cnpj').val();
-        var email = $('#email').val();
-        var atividade = $('#ramo').val();
-        var cep = $('#cep').val();
-        var endereco = $('#endereco').val();
-        var bairro = $('#bairro').val();
-        var uf = $('#uf').val();
-        var cidade = $('#cidade').val();
-        var contato = $('#contato').val();
-        var referencia = $('#referencia').val();
-        var password = $('#password').val();
-        var pontuacao = 0;
-    
         let _url = $('#url_cadastro').val();
         let _token   = $('meta[name="csrf-token"]').attr('content');
 
@@ -58,37 +17,27 @@ $(document).ready(function(){
                 url: _url,
                 type: "POST",
                 data: {
-                    razao_social: razao,
-                    cnpj: cnpj,
-                    email: email,
-                    ramo_atividade: atividade,
-                    cep: cep,
-                    endereco: endereco,
-                    bairro: bairro,
-                    uf: uf,
-                    cidade: cidade,
-                    contato: contato,
-                    referencia: referencia,
-                    password: password,
-                    pontuacao:pontuacao,
+                    titulo: titulo,
+                    descricao: descricao,
+                    autor:autor,
+                    numero_paginas:numero_paginas,
                     _token: _token
                 },
 
                 success: function(response) {
                     console.log(response);
-                    //location.reload();
                 },
                 error: function(response) {
                     console.log(response)
                 }
             });
             $('#modal-loading').modal('hide');
-            // location.reload();
         }, 3000);
+        // location.reload;
     });
 
-    $(".btn-editar-empresa").click(function(){
-        $("#modal-editar-empresa").modal();
+    $(".btn-editar-profissional").click(function(){
+        $("#modal-editar-profissional").modal();
         let id = $("#id_input").val();
         let _url = $('#url_visualizar').val();
         //let _token   = $('meta[name="csrf-token"]').attr('content');
@@ -98,20 +47,22 @@ $(document).ready(function(){
             type: "GET",
             
             success: function(response) {
+                console.log(response);
                 //console.log(response[0]["razao_social"]);
                 $("#id_edit").val(response[0]["id"]);
-                $('#razao_social_edit').val(response[0]["razao_social"]);
-                $('#cnpj_edit').val(response[0]["cnpj"]);
+                $('#parceiro_edit').val(response[0]["parceiro"]);
+                $('#cpf_edit').val(response[0]["cpf"]);
                 $('#email_edit').val(response[0]["email"]);
                 $('#email_verified').val(response[0]["email"]);
-                $('#ramo_edit').val(response[0]["ramo_atividade"]);
+                $('#area_edit').val(response[0]["area_atuacao"]);
+                $('#nascimento_edit').val(response[0]["nascimento"]);
+                $('#telefone_edit').val(response[0]["telefone"]);
                 $('#cep_edit').val(response[0]["cep"]);
                 $('#endereco_edit').val(response[0]["endereco"]);
                 $('#bairro_edit').val(response[0]["bairro"]);
                 $('#uf_edit').val(response[0]["uf"]);
                 $('#cidade_edit').val(response[0]["cidade"]);
-                $('#referencia_edit').val(response[0]["referencia"]);
-                $('#contato_edit').val(response[0]["contato"]);
+                $('#chave_pix_edit').val(response[0]["chave_pix"]);
                 $('#password_edit').val(response[0]["password"]);
             },
             error: function(err) {
@@ -123,22 +74,23 @@ $(document).ready(function(){
 
     $("#editar-dados").click(function(){
         var id = $("#id_edit").val();
-        var razao = $('#razao_social_edit').val();
-        var cnpj = $('#cnpj_edit').val();
+        var parceiro = $('#parceiro_edit').val();
+        var cpf = $('#cpf_edit').val();
         var email = $('#email_edit').val();
         var email_verified = $('#email_verified').val();
-        var atividade = $('#ramo_edit').val();
+        var area_atuacao = $('#area_edit').val();
+        var nascimento = $('#nascimento_edit').val();
+        var telefone = $('#telefone_edit').val();
         var cep = $('#cep_edit').val();
         var endereco = $('#endereco_edit').val();
         var bairro = $('#bairro_edit').val();
         var uf = $('#uf_edit').val();
         var cidade = $('#cidade_edit').val();
-        var contato = $('#contato_edit').val();
-        var referencia = $('#referencia_edit').val();
+        var chave_pix = $('#chave_pix_edit').val();
         var password = $('#password_edit').val();
 
         let _url = $('#url_cadastro').val();
-        $("#modal-editar-empresa").modal('hide');
+        $("#modal-editar-profissional").modal('hide');
         $('#modal-loading').modal('show');
         
         $.ajaxSetup({
@@ -152,62 +104,69 @@ $(document).ready(function(){
                 type: "PUT",
                 data: {
                     id: id,
-                    razao_social: razao,
-                    cnpj: cnpj,
+                    parceiro: parceiro,
+                    cpf: cpf,
                     email: email,
-                    email_verified:email_verified,
-                    ramo_atividade: atividade,
+                    area_atuacao: area_atuacao,
+                    nascimento: nascimento,
+                    telefone: telefone,
                     cep: cep,
                     endereco: endereco,
                     bairro: bairro,
                     uf: uf,
                     cidade: cidade,
-                    contato: contato,
-                    referencia: referencia,
-                    password: password
-                    // _token: _token
+                    chave_pix: chave_pix,
+                    password: password,
                 },
                 
                 success: function(response) {
                     console.log(response);
+                    //location.reload(); 
                 },
                 error: function(err) {
                     console.log(err)
                 }
             });
             $('#modal-loading').modal('hide');
+
             //location.reload();
         }, 3000);
+
     });
 
-    $(".btn-excluir-empresa").click(function(){
-        $("#modal-excluir-empresa").modal();
+    $(".btn-excluir-profissional").click(function(){
+        $("#modal-excluir-profissional").modal();
         let id = $("#id_input").val();
-        $('#id_deletar_empresa').val(id);
+        $('#id_deletar_profissional').val(id);
     });
 
+    
     $("#deletar").click(function(){
-        
-        let id = $("#id_deletar_empresa").val();
+    
+        let id = $("#id_deletar_profissional").val();
         let _url = $('#url_visualizar').val();
         let _token   = $('meta[name="csrf-token"]').attr('content');
-        $('#modal-excluir-empresa').modal('hide');
+        $('#modal-excluir-profissional').modal('hide');
         $('#modal-loading').modal('show');
         setTimeout(function () {
             $.ajax({
                 url: _url+"/"+id,
                 type: "DELETE",
-                data: {_token:_token},
+                data: {
+                    _token:_token
+                },
                 
                 success: function(response) {
                     console.log(response);
+                    if(response === "success"){
+                        console.log("deleção realizada")
+                    }
                 },
                 error: function(err) {
                     console.log(err)
                 }
             });
             $('#modal-loading').modal('hide');
-            alert("Empresa deletada com sucesso!");
             //location.reload();
         }, 3000);
     });
