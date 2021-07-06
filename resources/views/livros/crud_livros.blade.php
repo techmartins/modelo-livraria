@@ -2,6 +2,40 @@
 
 @section('content')
 
+<?php
+
+$chave = 'd5954524';
+$ip = $_SERVER["REMOTE_ADDR"];
+
+$dados = hg_request(array(
+  'city_name' => 'São Paulo'
+), $chave);
+
+if(!isset($dados)) {echo 'Descomente um dos exemplos para visualizar.'; die();}
+
+function hg_request($parametros, $chave = null, $endpoint = 'weather'){
+  $url = 'http://api.hgbrasil.com/'.$endpoint.'/?format=json&';
+  
+  if(is_array($parametros)){
+    // Insere a chave nos parametros
+    if(!empty($chave)) $parametros = array_merge($parametros, array('key' => $chave));
+    
+    // Transforma os parametros em URL
+    foreach($parametros as $key => $value){
+      if(empty($value)) continue;
+      $url .= $key.'='.urlencode($value).'&';
+    }
+    
+    // Obtem os dados da API
+    $resposta = file_get_contents(substr($url, 0, -1));
+    
+    return json_decode($resposta, true);
+  } else {
+    return false;
+  }
+}
+
+?>
 
 <div class="layout-px-spacing">
 
@@ -118,9 +152,9 @@
             </div>
           </div>
         
-        {{-- MODAL DE CADASTRO DE LIVROS --}}
+        {{-- MODAL DE EXCLUSÃO DE LIVROS --}}
 
-        <div class="modal fade" id="modal-add-livro" role="dialog">
+        <div class="modal fade" id="modal-excluir-livro" role="dialog">
             <div class="modal-dialog" style="max-width: 30%;">
             
             <!-- Modal content-->
@@ -133,6 +167,7 @@
                         <div class="widget-content widget-content-area" style="height: auto;">
                             <h3>Você tem certeza de que deseja excluir este livro?</h3>
                             <input type="hidden" id="id_deletar_livro">
+                            <input type="hidden" value="{{Request::url()}}" id="url_excluir">
                             <button type="button" class="btn btn-danger" id="deletar">Excluir</button>
                             <a data-dismiss="modal" style="text-decoration: none; cursor: pointer;">Fechar</a>
                         </div>
@@ -147,7 +182,7 @@
     </div>
 
     <!-- TABELA DE LIVROS -->
-    <div class="row layout-top-spacing" id="cancel-row">
+    <div class="row layout-spacing" id="cancel-row">
         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
             <div class="widget-content widget-content-area br-6">
                 <table id="default-ordering" class="table table-hover" style="width:100%">
@@ -172,9 +207,9 @@
                                 <td style="text-align: center">{{ $lv->numero_paginas }}</td>
                                 <td style="text-align: center">{{ $lv->created_at }}</td>
                                 <td class="text-center">
-                                    <button class="btn btn-primary btn-sm">Visualizar</button>
-                                    <button class="btn btn-warning btn-sm">Editar</button>
-                                    <button class="btn btn-danger btn-sm">Deletar</button>
+                                    <button class="btn btn-primary btn-sm btn-visualizar-livro" data-id="{{ $lv->id }}">Visualizar</button>
+                                    <button class="btn btn-warning btn-sm btn-editar-livro" data-id="{{ $lv->id }}">Editar</button>
+                                    <button class="btn btn-danger btn-sm btn-excluir-livro" data-id="{{ $lv->id }}">Deletar</button>
                                 </td>
                             </tr>
                         @endforeach
@@ -191,6 +226,14 @@
                         </tr>
                     </tfoot>
                 </table>
+            </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+            <div class="widget-content widget-content-area br-6">
+                <?php echo $dados['results']['city']; ?> <?php echo $dados['results']['temp']; ?> ºC<br>
+                <?php echo $dados['results']['description']; ?><br>
+                Nascer do Sol: <?php echo $dados['results']['sunrise']; ?> - Pôr do Sol: <?php echo $dados['results']['sunset']; ?><br>
+                Velocidade do vento: <?php echo $dados['results']['wind_speedy']; ?><br>
             </div>
         </div>
     </div>

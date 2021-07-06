@@ -36,11 +36,10 @@ $(document).ready(function(){
         // location.reload;
     });
 
-    $(".btn-editar-profissional").click(function(){
-        $("#modal-editar-profissional").modal();
-        let id = $("#id_input").val();
-        let _url = $('#url_visualizar').val();
-        //let _token   = $('meta[name="csrf-token"]').attr('content');
+    $(".btn-editar-livro").click(function(){
+        $("#modal-editar-livro").modal();
+        let id = $(this).data('id');
+        let _url = $('#url_editar').val();
         
         $.ajax({
             url: _url+"/"+id,
@@ -49,21 +48,11 @@ $(document).ready(function(){
             success: function(response) {
                 console.log(response);
                 //console.log(response[0]["razao_social"]);
-                $("#id_edit").val(response[0]["id"]);
-                $('#parceiro_edit').val(response[0]["parceiro"]);
-                $('#cpf_edit').val(response[0]["cpf"]);
-                $('#email_edit').val(response[0]["email"]);
-                $('#email_verified').val(response[0]["email"]);
-                $('#area_edit').val(response[0]["area_atuacao"]);
-                $('#nascimento_edit').val(response[0]["nascimento"]);
-                $('#telefone_edit').val(response[0]["telefone"]);
-                $('#cep_edit').val(response[0]["cep"]);
-                $('#endereco_edit').val(response[0]["endereco"]);
-                $('#bairro_edit').val(response[0]["bairro"]);
-                $('#uf_edit').val(response[0]["uf"]);
-                $('#cidade_edit').val(response[0]["cidade"]);
-                $('#chave_pix_edit').val(response[0]["chave_pix"]);
-                $('#password_edit').val(response[0]["password"]);
+                $('#id_edit').val(response["id"]);
+                $("#titulo_edit").val(response["titulo"]);
+                $('#descricao_edit').val(response["descricao"]);
+                $('#autor_edit').val(response["autor"]);
+                $('#numero_paginas_edit').val(response["numero_paginas"]);
             },
             error: function(err) {
                 console.log(err)
@@ -74,23 +63,13 @@ $(document).ready(function(){
 
     $("#editar-dados").click(function(){
         var id = $("#id_edit").val();
-        var parceiro = $('#parceiro_edit').val();
-        var cpf = $('#cpf_edit').val();
-        var email = $('#email_edit').val();
-        var email_verified = $('#email_verified').val();
-        var area_atuacao = $('#area_edit').val();
-        var nascimento = $('#nascimento_edit').val();
-        var telefone = $('#telefone_edit').val();
-        var cep = $('#cep_edit').val();
-        var endereco = $('#endereco_edit').val();
-        var bairro = $('#bairro_edit').val();
-        var uf = $('#uf_edit').val();
-        var cidade = $('#cidade_edit').val();
-        var chave_pix = $('#chave_pix_edit').val();
-        var password = $('#password_edit').val();
-
-        let _url = $('#url_cadastro').val();
-        $("#modal-editar-profissional").modal('hide');
+        var titulo = $('#titulo_edit').val();
+        var descricao = $('#descricao_edit').val();
+        var autor = $('#autor_edit').val();
+        var numero_paginas = $('#numero_paginas_edit').val();
+        
+        let _url = $('#url_editar').val();
+        $("#modal-editar-livro").modal('hide');
         $('#modal-loading').modal('show');
         
         $.ajaxSetup({
@@ -103,50 +82,38 @@ $(document).ready(function(){
                 url: _url+"/"+id,
                 type: "PUT",
                 data: {
-                    id: id,
-                    parceiro: parceiro,
-                    cpf: cpf,
-                    email: email,
-                    area_atuacao: area_atuacao,
-                    nascimento: nascimento,
-                    telefone: telefone,
-                    cep: cep,
-                    endereco: endereco,
-                    bairro: bairro,
-                    uf: uf,
-                    cidade: cidade,
-                    chave_pix: chave_pix,
-                    password: password,
+                    titulo:titulo,
+                    descricao:descricao,
+                    autor:autor,
+                    numero_paginas
                 },
                 
                 success: function(response) {
                     console.log(response);
-                    //location.reload(); 
                 },
                 error: function(err) {
                     console.log(err)
                 }
             });
             $('#modal-loading').modal('hide');
-
-            //location.reload();
+            // location.reload();
         }, 3000);
-
+        // location.reload();
     });
 
-    $(".btn-excluir-profissional").click(function(){
-        $("#modal-excluir-profissional").modal();
-        let id = $("#id_input").val();
-        $('#id_deletar_profissional').val(id);
+    $(".btn-excluir-livro").click(function(){
+        $("#modal-excluir-livro").modal();
+        let id = $(this).data('id');
+        $('#id_deletar_livro').val(id);
     });
 
     
     $("#deletar").click(function(){
     
-        let id = $("#id_deletar_profissional").val();
-        let _url = $('#url_visualizar').val();
+        let id = $("#id_deletar_livro").val();
+        let _url = $('#url_excluir').val();
         let _token   = $('meta[name="csrf-token"]').attr('content');
-        $('#modal-excluir-profissional').modal('hide');
+        $('#modal-excluir-livro').modal('hide');
         $('#modal-loading').modal('show');
         setTimeout(function () {
             $.ajax({
@@ -159,7 +126,7 @@ $(document).ready(function(){
                 success: function(response) {
                     console.log(response);
                     if(response === "success"){
-                        console.log("deleção realizada")
+                        console.log("Exclusão realizada com sucesso!")
                     }
                 },
                 error: function(err) {
@@ -167,7 +134,7 @@ $(document).ready(function(){
                 }
             });
             $('#modal-loading').modal('hide');
-            //location.reload();
+            // location.reload();
         }, 3000);
     });
 

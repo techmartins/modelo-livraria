@@ -48,8 +48,8 @@ feather.replace();
         },
         "order": [[ 3, "desc" ]],
         "stripeClasses": [],
-        "lengthMenu": [7, 10, 20, 50],
-        "pageLength": 7,
+        "lengthMenu": [5, 10, 20, 50],
+        "pageLength": 5,
         drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered'); }
     } );
 </script>
