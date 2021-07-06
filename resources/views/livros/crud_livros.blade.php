@@ -54,7 +54,6 @@
                                             <th style="text-align: center">Autor</th>
                                             <th style="text-align: center">Nº de Páginas</th>
                                             <th style="text-align: center">Data de Cadastro</th>
-                                            <th style="text-align: center">Ação</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -66,9 +65,6 @@
                                             <td style="text-align: center">{{ $lv->autor }}</td>
                                             <td style="text-align: center">{{ $lv->numero_paginas }}</td>
                                             <td style="text-align: center">{{ $lv->created_at }}</td>
-                                            <td style="text-align: center">
-                                                
-                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>

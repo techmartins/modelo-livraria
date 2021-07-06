@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Livros;
+use App\Models\Livros;
 
 class LivrosController extends Controller
 {
@@ -37,6 +37,8 @@ class LivrosController extends Controller
             'numero_paginas',
             'data_cadastro'
         ]);
+
+        return Livros::create($request->all());
     }
 
     /**
@@ -47,7 +49,7 @@ class LivrosController extends Controller
      */
     public function show($id)
     {
-        //
+        return Livros::find($id);
     }
 
     /**
@@ -59,7 +61,9 @@ class LivrosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $livros = Livros::find($id);
+        $livros->update($request->all());
+        return $livros;
     }
 
     /**
@@ -70,6 +74,6 @@ class LivrosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Livros::destroy($id);
     }
 }
