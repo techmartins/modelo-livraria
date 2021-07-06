@@ -15,7 +15,11 @@ class LivrosController extends Controller
     public function index()
     {
         $livros = Livros::where('deleted_at', '=', null)->get();
-        return view('livros.crud_livros',compact('livros'));
+        $page_name = 'livros';
+        $category_name = 'livros';
+        $has_scrollspy = 0;
+        $scrollspy_offset = '';
+        return view('livros.crud_livros',compact('livros', 'page_name', 'category_name', 'has_scrollspy', 'scrollspy_offset'));
     }
 
     /**

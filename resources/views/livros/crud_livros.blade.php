@@ -16,6 +16,31 @@
                     </div>
                 </div>
                 <div class="widget-content widget-content-area" style="height: auto;">
+                    <form action="{{ route('livros.store') }}" method="POST">
+        
+                        <div class="form-row mb-1">
+                            <div class="form-group col-md-12 col-sm-12 col-xl-12">
+                            <label for="titulo">Título</label>
+                            <input name="titulo" type="text" class="form-control" id="titulo" placeholder="Título do Livro">
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12 col-xl-12">
+                            <label for="descricao">Descrição</label>
+                            <textarea name="descricao" cols="10" rows="5" class="form-control" id="descricao"></textarea>
+                            </div>
+                            <div class="form-group col-md-4 col-sm-12 col-xl-4">
+                            <label for="autor">Autor</label>
+                            <input name="autor" type="text" class="form-control" id="autor">
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12 col-xl-2">
+                            <label for="numero_paginas">Nº de Páginas</label>
+                            <input name="numero_paginas" type="number" class="form-control" id="numero_paginas">
+                            </div>
+                            <div class="form-group col-md-6"></div>
+                            <button type="button" class="btn btn-primary mt-3" id="enviar-dados">Inserir Livro</button>
+                        </div>
+                        </form>
+                    </div>
+                <div class="widget-content widget-content-area" style="height: auto;">
                     
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="widget-content widget-content-area br-6">

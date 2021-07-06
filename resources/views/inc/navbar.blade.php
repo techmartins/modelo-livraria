@@ -1,13 +1,11 @@
-@if ($page_name != 'coming_soon' && $page_name != 'contact_us' && $page_name != 'error404' && $page_name != 'error500' && $page_name != 'error503' && $page_name != 'faq' && $page_name != 'helpdesk' && $page_name != 'maintenence' && $page_name != 'privacy' && $page_name != 'auth_boxed' && $page_name != 'auth_default')
-
 <!--  BEGIN NAVBAR  -->
     <div class="header-container" style="background-color: #9fb7e8">
         <header class="header navbar navbar-expand-sm">
 
             <div class="nav-logo align-self-center">
-                <a class="navbar-brand" href="/analytics">
-                    <img alt="logo" style="margin-right: 15%; height: 90px; width: 110px" src="{{asset('assets/img/logo.png')}}"> 
-                    <span class="navbar-brand-name" style="color: #0f046a;">INDICARE - Modelo</span>
+                <a class="navbar-brand" href="/livros">
+                    <img alt="logo" style="margin-right: 15%; height: 90px; width: 110px" src="{{asset('assets/img/livros.png')}}"> 
+                    <span class="navbar-brand-name" style="color: #0f046a;">Livraria - Modelo</span>
                 </a>
             </div>
 
@@ -46,4 +44,3 @@
     </div>
     <!--  END NAVBAR  -->
 
-@endif
