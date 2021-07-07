@@ -39,4 +39,7 @@ DB_PASSWORD=admin
         - layout/ -> Contêm o arquivo app.blade.php onde fica estruturado todo conteúdo das telas
         - livros/ -> contêm arquivo crud_livros.blade.php com tabela de catálogo de livros, formulários de cadastro, edição/visualização e botão de excluir registro de livro
     - /routes/web.php -> arquivo com as rotas do CRUD
-    
+
+# Importante
+
+### Há um conflito no javascript não resolvido sobre o reload ser realizado apenas no DataTable contendo os registros, onde deixei comentado no código este trecho do reload pois o mesmo de alguma forma impede o carregamento dos dados da tabela posteriormente.
