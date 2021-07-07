@@ -5,8 +5,11 @@
 1. Rodar os seguintes compandos
     - ```composer install```
     - ```npm install```
-2. Criar database, e em seguida rodar o seguinte comando para que sejam criadas as tabelas do sistema:
+2. Criar database, e em seguida rodar os seguintes comandos para que sejam criadas as tabelas do sistema e o usuário de acesso:
     - ```php artisan migrate```
+    - No banco de dados rodar o seguinte comando:
+        - INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Cork', 'admin@cork.com', NULL, '$2y$10$wUeG8t8qqUaqKQMoBU5bledy6.48bv6bAoJ1TkjJ6bgXchP.BQfcK', NULL, '2020-05-27 06:07:35', '2020-05-27 06:07:35');
 
 3. Copiar o conteúdo do arquivo ".env.example" para um novo arquivo chamado ".env"
 
@@ -25,6 +28,10 @@ DB_PASSWORD=admin
 
 6. Caso ocorra algum erro momentâneo, tente rodar o código:
     - ```php artisan optimize:clear```
+
+7. Acesso:
+    -Login: admin@cork.com
+    -Senha: password
 ---
 
 # Arquivos
